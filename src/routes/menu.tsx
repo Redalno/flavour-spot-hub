@@ -53,7 +53,7 @@ type Supplement = { name: string; price: number };
 type Section = {
   id: string;
   title: string;
-  group: "food" | "drinks";
+  group: "food" | "drinks" | "brunch" | "dessert";
   note?: string;
   items?: Item[];
   subsections?: Subsection[];
@@ -64,7 +64,7 @@ const sections: Section[] = [
   {
     id: "petits-dejeuners",
     title: "Petits-déjeuners",
-    group: "food",
+    group: "brunch",
     note:
       "Servis chaque jour de 07h00 à 11h30. Formules non modifiables. Boissons chaudes comprises (Espresso, Macchiato, Americano, Café crème, Thé à la menthe, Cappuccino, Lait chaud, Chocolat au lait, Verveine fraîche). Supplément 10 dhs pour Nespresso ou Tchaba.",
     items: [
@@ -81,7 +81,7 @@ const sections: Section[] = [
   {
     id: "brunchs",
     title: "Brunchs",
-    group: "food",
+    group: "brunch",
     note: "Servis tous les jours, toute la journée. Formules non modifiables.",
     items: [
       { name: "Crosswich César", price: 100, description: "Croissant garni de poulet, œuf dur, parmesan, laitue, tomates, sauce César. 3 croquettes fromage-pomme de terre. Crêpes au Nutella. Bol de yaourt au granola maison. Boisson chaude, jus et bouteille d'eau." },
@@ -256,7 +256,7 @@ const sections: Section[] = [
   {
     id: "gaufres",
     title: "Gaufres de Liège",
-    group: "food",
+    group: "dessert",
     items: [
       { name: "Chantilly Nutella noisettes", price: 50 },
       { name: "Chantilly caramel & noix", price: 50 },
@@ -266,7 +266,7 @@ const sections: Section[] = [
   {
     id: "crepes",
     title: "Crêpes",
-    group: "food",
+    group: "dessert",
     subsections: [
       {
         title: "Salées",
@@ -291,7 +291,7 @@ const sections: Section[] = [
   {
     id: "douceurs",
     title: "Douceurs de la maison",
-    group: "food",
+    group: "dessert",
     note: "Sweet Corner : choix parmi les pâtisseries du jour. Tous nos gâteaux en vitrine sont faits sur place, chaque jour, par nos pâtissiers.",
     items: [
       { name: "Mi-cuit au chocolat", price: 70, description: "Boule de glace vanille et coulis de caramel beurre salé." },
@@ -458,6 +458,7 @@ const filters = [
   { id: "all", label: "Tout" },
   { id: "brunch", label: "Brunch & Petit-déj" },
   { id: "food", label: "Cuisine" },
+  { id: "dessert", label: "Douceurs" },
   { id: "drinks", label: "Boissons" },
 ] as const;
 
@@ -488,11 +489,10 @@ function MenuPage() {
   const { t } = useLanguage();
   const [active, setActive] = useState<(typeof filters)[number]["id"]>("all");
 
-  const visible = useMemo(() => {
-    if (active === "all") return sections;
-    if (active === "brunch") return sections.filter((s) => s.id === "petits-dejeuners" || s.id === "brunchs");
-    return sections.filter((s) => s.group === active);
-  }, [active]);
+  const visible = useMemo(
+    () => (active === "all" ? sections : sections.filter((s) => s.group === active)),
+    [active],
+  );
 
   return (
     <div className="py-16 md:py-24">
