@@ -65,7 +65,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <LangToggle />
           <Link
-            to="/contact"
+            to="/reservations"
             className="hidden md:inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             {t("nav.reserve")}
@@ -96,7 +96,7 @@ export function Header() {
               </Link>
             ))}
             <Link
-              to="/contact"
+              to="/reservations"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground"
             >
