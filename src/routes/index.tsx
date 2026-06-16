@@ -119,9 +119,9 @@ function Home() {
                 </div>
                 <h1 className="mt-7 font-display text-[clamp(2.75rem,7vw,6rem)] leading-[0.95] text-primary-foreground">
                   {lang === "fr" ? (
-                    <>Le brunch qui fait <span className="text-italic-display text-clay">parler</span> Casablanca.</>
+                    <>Le brunch qui fait <span className="text-italic-display text-primary-foreground">parler</span> Casablanca.</>
                   ) : (
-                    <>The brunch Casablanca <span className="text-italic-display text-clay">whispers</span> about.</>
+                    <>The brunch Casablanca <span className="text-italic-display text-primary-foreground">whispers</span> about.</>
                   )}
                 </h1>
                 <p className="mt-6 max-w-xl text-base md:text-lg text-primary-foreground/85 leading-relaxed">
