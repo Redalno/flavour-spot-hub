@@ -21,7 +21,6 @@ const schema = z.object({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -41,24 +40,13 @@ function AuthPage() {
     }
     setLoading(true);
     try {
-      if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email: parsed.data.email,
-          password: parsed.data.password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (error) throw error;
-        toast.success("Compte créé. Vous pouvez maintenant vous connecter.");
-        setMode("signin");
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: parsed.data.email,
-          password: parsed.data.password,
-        });
-        if (error) throw error;
-        toast.success("Connecté");
-        navigate({ to: "/admin" });
-      }
+      const { error } = await supabase.auth.signInWithPassword({
+        email: parsed.data.email,
+        password: parsed.data.password,
+      });
+      if (error) throw error;
+      toast.success("Connecté");
+      navigate({ to: "/admin" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Erreur");
     } finally {
@@ -103,21 +91,9 @@ function AuthPage() {
             disabled={loading}
             className="w-full rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
           >
-            {loading ? "..." : mode === "signin" ? "Se connecter" : "Créer le compte"}
+            {loading ? "..." : "Se connecter"}
           </button>
         </form>
-
-        <div className="mt-6 text-center text-sm">
-          {mode === "signin" ? (
-            <button onClick={() => setMode("signup")} className="text-muted-foreground hover:text-foreground underline">
-              Pas encore de compte ? Créer un compte manager
-            </button>
-          ) : (
-            <button onClick={() => setMode("signin")} className="text-muted-foreground hover:text-foreground underline">
-              Déjà un compte ? Se connecter
-            </button>
-          )}
-        </div>
 
         <p className="mt-8 text-center text-xs text-muted-foreground">
           <Link to="/" className="underline">← Retour au site</Link>
