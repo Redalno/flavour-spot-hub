@@ -72,8 +72,9 @@ function EventsPage() {
                 </p>
               </div>
             ))}
+            </div>
           </div>
-        </div>
+        </section>
 
         <div className="mt-20 rounded-3xl bg-primary text-primary-foreground p-10 md:p-14 flex flex-col md:flex-row md:items-center gap-8 justify-between">
           <div className="max-w-xl">
