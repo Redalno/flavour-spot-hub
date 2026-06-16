@@ -15,9 +15,30 @@ export const Route = createFileRoute("/menu")({
           "La carte de Rosanne : brunch, plats signatures, desserts et boissons. Prix moyens 100–150 MAD.",
       },
       { property: "og:title", content: "Menu — Rosanne" },
-      { property: "og:url", content: "/menu" },
+      {
+        property: "og:description",
+        content:
+          "Brunch, plats salés, desserts signature et boissons chez Rosanne — Bd Ghandi, Casablanca. Prix moyens 100–150 MAD.",
+      },
+      { property: "og:url", content: "https://flavour-spot-hub.lovable.app/menu" },
     ],
-    links: [{ rel: "canonical", href: "/menu" }],
+    links: [{ rel: "canonical", href: "https://flavour-spot-hub.lovable.app/menu" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Menu",
+          name: "Menu Rosanne",
+          hasMenuSection: [
+            { "@type": "MenuSection", name: "Brunch" },
+            { "@type": "MenuSection", name: "Salé" },
+            { "@type": "MenuSection", name: "Desserts" },
+            { "@type": "MenuSection", name: "Boissons" },
+          ],
+        }),
+      },
+    ],
   }),
   component: MenuPage,
 });
@@ -67,6 +88,10 @@ function MenuPage() {
     return t(`menu.cat.${c}` as const);
   };
 
+  const visibleCats = active === "all"
+    ? (["brunch", "savory", "desserts", "drinks"] as const)
+    : ([active] as const);
+
   return (
     <div className="py-16 md:py-24">
       <div className="container-rosanne">
@@ -92,41 +117,52 @@ function MenuPage() {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-x-12 gap-y-8 md:grid-cols-2">
-          {filtered.map((it) => (
-            <article
-              key={it.name}
-              className="flex gap-5 pb-7 border-b border-dashed border-border last:border-0"
-            >
-              {it.img && (
-                <div className="hidden sm:block h-24 w-24 shrink-0 rounded-xl overflow-hidden">
-                  <img
-                    src={it.img}
-                    alt={it.name}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              )}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-display text-xl leading-tight">
-                    {it.name}
-                    {it.signature && (
-                      <span className="ml-2 align-middle inline-block text-[10px] uppercase tracking-[0.16em] text-gold border border-gold/40 rounded-full px-2 py-0.5">
-                        {t("menu.signature")}
-                      </span>
+        {visibleCats.map((cat) => {
+          const catItems = filtered.filter((i) => i.cat === cat);
+          if (catItems.length === 0) return null;
+          return (
+            <section key={cat} aria-labelledby={`cat-${cat}`} className="mt-12">
+              <h2 id={`cat-${cat}`} className="font-display text-3xl md:text-4xl mb-6">
+                {catLabel(cat)}
+              </h2>
+              <div className="grid gap-x-12 gap-y-8 md:grid-cols-2">
+                {catItems.map((it) => (
+                  <article
+                    key={it.name}
+                    className="flex gap-5 pb-7 border-b border-dashed border-border last:border-0"
+                  >
+                    {it.img && (
+                      <div className="hidden sm:block h-24 w-24 shrink-0 rounded-xl overflow-hidden">
+                        <img
+                          src={it.img}
+                          alt={it.name}
+                          loading="lazy"
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
                     )}
-                  </h3>
-                  <span className="text-sm font-medium whitespace-nowrap">{it.price}</span>
-                </div>
-                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
-                  {it.desc}
-                </p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline justify-between gap-4">
+                        <h3 className="font-display text-xl leading-tight">
+                          {it.name}
+                          {it.signature && (
+                            <span className="ml-2 align-middle inline-block text-[10px] uppercase tracking-[0.16em] text-gold border border-gold/40 rounded-full px-2 py-0.5">
+                              {t("menu.signature")}
+                            </span>
+                          )}
+                        </h3>
+                        <span className="text-sm font-medium whitespace-nowrap">{it.price}</span>
+                      </div>
+                      <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                        {it.desc}
+                      </p>
+                    </div>
+                  </article>
+                ))}
               </div>
-            </article>
-          ))}
-        </div>
+            </section>
+          );
+        })}
       </div>
     </div>
   );

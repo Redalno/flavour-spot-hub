@@ -13,9 +13,14 @@ export const Route = createFileRoute("/events")({
           "Privatisation, anniversaires, baby showers, dîners de groupe. Rosanne organise vos célébrations sur le Bd Ghandi.",
       },
       { property: "og:title", content: "Événements — Rosanne" },
-      { property: "og:url", content: "/events" },
+      {
+        property: "og:description",
+        content:
+          "Privatisez Rosanne pour vos anniversaires, baby showers et iftars. Décoration, menu et animation sur mesure à Casablanca.",
+      },
+      { property: "og:url", content: "https://flavour-spot-hub.lovable.app/events" },
     ],
-    links: [{ rel: "canonical", href: "/events" }],
+    links: [{ rel: "canonical", href: "https://flavour-spot-hub.lovable.app/events" }],
   }),
   component: EventsPage,
 });
@@ -39,7 +44,7 @@ function EventsPage() {
           <p className="mt-4 text-muted-foreground text-lg">{t("events.lead")}</p>
         </header>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-10 items-center">
+        <section aria-labelledby="services-heading" className="mt-12 grid md:grid-cols-2 gap-10 items-center">
           <div className="aspect-[4/5] overflow-hidden rounded-2xl">
             <img
               src={eventImg}
@@ -48,7 +53,11 @@ function EventsPage() {
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div>
+            <h2 id="services-heading" className="font-display text-3xl md:text-4xl mb-6">
+              Nos services
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-5">
             {features.map((f) => (
               <div
                 key={f.title}
@@ -63,8 +72,9 @@ function EventsPage() {
                 </p>
               </div>
             ))}
+            </div>
           </div>
-        </div>
+        </section>
 
         <div className="mt-20 rounded-3xl bg-primary text-primary-foreground p-10 md:p-14 flex flex-col md:flex-row md:items-center gap-8 justify-between">
           <div className="max-w-xl">

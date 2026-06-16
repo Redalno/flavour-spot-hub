@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flavour-spot-hub.lovable.app/sitemap.xml
