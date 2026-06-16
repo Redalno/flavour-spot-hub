@@ -456,6 +456,7 @@ const sections: Section[] = [
 
 const filters = [
   { id: "all", label: "Tout" },
+  { id: "brunch", label: "Brunch & Petit-déj" },
   { id: "food", label: "Cuisine" },
   { id: "drinks", label: "Boissons" },
 ] as const;
@@ -487,10 +488,11 @@ function MenuPage() {
   const { t } = useLanguage();
   const [active, setActive] = useState<(typeof filters)[number]["id"]>("all");
 
-  const visible = useMemo(
-    () => (active === "all" ? sections : sections.filter((s) => s.group === active)),
-    [active],
-  );
+  const visible = useMemo(() => {
+    if (active === "all") return sections;
+    if (active === "brunch") return sections.filter((s) => s.id === "petits-dejeuners" || s.id === "brunchs");
+    return sections.filter((s) => s.group === active);
+  }, [active]);
 
   return (
     <div className="py-16 md:py-24">
