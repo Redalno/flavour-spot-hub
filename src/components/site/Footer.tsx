@@ -72,9 +72,14 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border">
-        <div className="container-rosanne py-5 text-xs text-muted-foreground flex flex-col md:flex-row gap-2 justify-between">
+        <div className="container-rosanne py-5 text-xs text-muted-foreground flex flex-col md:flex-row gap-2 justify-between items-center">
           <span>© {new Date().getFullYear()} Rosanne. {t("footer.rights")}</span>
-          <span>Bd Ghandi · Casablanca · Morocco</span>
+          <div className="flex items-center gap-4">
+            <span>Bd Ghandi · Casablanca · Morocco</span>
+            <Link to="/auth" className="text-muted-foreground/60 hover:text-muted-foreground transition-colors">
+              Espace manager
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
