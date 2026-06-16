@@ -1,0 +1,11 @@
+# Rosanne — Brunch & Café · Casablanca
+
+> Women-led brunch spot on Bd Ghandi, Casablanca. Daily brunch, signature desserts, and private events.
+
+## Pages
+
+- [Home](/): Hero, signature dishes, reviews, and overview of Rosanne.
+- [Menu](/menu): Brunch, savory plates, desserts, and drinks with prices.
+- [Events](/events): Birthdays, baby showers, iftars and private celebrations.
+- [About](/about): The story behind Rosanne and the women-led team.
+- [Contact](/contact): Address, phone, hours, and reservation form.

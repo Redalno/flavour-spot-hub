@@ -21,9 +21,14 @@ export const Route = createFileRoute("/contact")({
           "Contactez Rosanne pour une réservation, une privatisation ou une question. Bd Ghandi, Casablanca · 07 08 13 90 13.",
       },
       { property: "og:title", content: "Contact — Rosanne" },
-      { property: "og:url", content: "/contact" },
+      {
+        property: "og:description",
+        content:
+          "Réservez votre table ou organisez votre événement chez Rosanne, Bd Ghandi à Casablanca. Téléphone, formulaire et horaires.",
+      },
+      { property: "og:url", content: "https://flavour-spot-hub.lovable.app/contact" },
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: [{ rel: "canonical", href: "https://flavour-spot-hub.lovable.app/contact" }],
   }),
   validateSearch: searchSchema,
   component: ContactPage,

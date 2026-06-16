@@ -12,9 +12,14 @@ export const Route = createFileRoute("/about")({
           "L'histoire de Rosanne, café women-led sur le Bd Ghandi à Casablanca. Brunch, événements et hospitalité.",
       },
       { property: "og:title", content: "À propos — Rosanne" },
-      { property: "og:url", content: "/about" },
+      {
+        property: "og:description",
+        content:
+          "Découvrez Rosanne, café women-led à Casablanca : brunch, desserts signature et hospitalité chaleureuse sur le Bd Ghandi.",
+      },
+      { property: "og:url", content: "https://flavour-spot-hub.lovable.app/about" },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: "https://flavour-spot-hub.lovable.app/about" }],
   }),
   component: AboutPage,
 });
